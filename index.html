@@ -52,13 +52,14 @@
       .stroke-white {
         -webkit-text-stroke: 2px rgba(255,255,255,0.1);
       }
-      /* Fallback for background on very old devices */
+      /* Fallback for background on very old devices or Androids with poor glass support */
       .bg-glass {
-        background-color: rgba(18, 18, 18, 0.9);
+        background-color: #121212;
       }
       @supports (backdrop-filter: blur(12px)) {
         .bg-glass {
-          background-color: rgba(18, 18, 18, 0.6);
+          /* Increased opacity from 0.6 to 0.85 to ensure visibility on Android */
+          background-color: rgba(18, 18, 18, 0.85);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
         }
@@ -86,7 +87,7 @@
         <div class="absolute top-[30%] -right-[10%] w-[900px] h-[900px] bg-[radial-gradient(circle_closest-side,rgba(255,0,255,0.2),transparent)] opacity-100 animate-pulse-slow delay-1000 will-change-transform"></div>
         
         <!-- Grid Pattern overlay -->
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       </div>
       
       <main class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,7 +149,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12">
               
               <!-- Feature 1 -->
-              <div class="bg-glass border border-white/5 p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group">
+              <div class="bg-glass border border-white/10 p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group">
                 <div class="bg-white/5 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <!-- CheckCircle2 Icon -->
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-brand-neon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
@@ -162,7 +163,7 @@
               </div>
 
               <!-- Feature 2 -->
-              <div class="bg-glass border border-white/5 p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group delay-200">
+              <div class="bg-glass border border-white/10 p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group delay-200">
                 <div class="bg-white/5 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <!-- Target Icon -->
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-brand-accent"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
@@ -176,7 +177,7 @@
               </div>
 
               <!-- Feature 3 -->
-              <div class="bg-glass border border-white/5 p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group delay-400">
+              <div class="bg-glass border border-white/10 p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group delay-400">
                 <div class="bg-white/5 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <!-- User Icon -->
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-blue-400"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -203,9 +204,12 @@
         </section>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 py-10 text-center">
+        <footer class="border-t border-white/10 py-10 text-center flex flex-col items-center gap-4">
           <p class="text-gray-500 font-mono text-sm">
             © 2024 Сообщество БОЛЬШЕ. All rights reserved.
+          </p>
+          <p class="text-white/40 font-mono text-xs uppercase tracking-widest hover:text-white transition-colors duration-300">
+            Это все
           </p>
         </footer>
 
