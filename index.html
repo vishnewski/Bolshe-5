@@ -71,7 +71,16 @@
         }
       }
     </script>
-  </head>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
   <body class="bg-brand-dark text-white selection:bg-brand-neon selection:text-brand-dark">
     
     <div class="fallback-grid"></div>
@@ -156,4 +165,24 @@
       <!-- CTA -->
       <section class="py-20 px-4 text-center">
         <div class="max-w-2xl mx-auto bg-white text-black p-10 md:p-16 rounded-[40px] shadow-[0_0_50px_rgba(255,255,255,0.2)]">
-          <h3 class="text-3xl md:text-5xl font-display font-black mb-8 leading-tight">ГОТОВ К ПЕРЕМЕНАМ?
+          <h3 class="text-3xl md:text-5xl font-display font-black mb-8 leading-tight uppercase">ГОТОВ К ПЕРЕМЕНАМ?</h3>
+          <button 
+            onclick="window.open('https://t.me/Bolshezapis_bot', '_blank')"
+            class="w-full bg-brand-dark text-white font-display font-bold py-6 px-10 rounded-2xl text-xl hover:bg-brand-neon hover:text-brand-dark transition-all active:scale-95 uppercase cursor-pointer"
+          >
+            ЗАПИСАТЬСЯ В ПРЕДЗАПИСЬ
+          </button>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="py-20 border-t border-white/5 text-center">
+        <p class="text-gray-600 font-mono text-sm mb-6 italic uppercase">© 2024 BOLSHE COMMUNITY SEASON 2</p>
+        <p class="text-white font-display font-black text-2xl md:text-4xl uppercase tracking-[0.5em] animate-pulse">
+          ЭТО ВСЕ
+        </p>
+      </footer>
+
+    </main>
+  </body>
+</html>
