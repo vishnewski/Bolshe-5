@@ -37,12 +37,26 @@
       .neon-glow {
         text-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
       }
+      .neon-glow-accent {
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+      }
       @keyframes bounce-slow {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(10px); }
       }
       .animate-bounce-slow {
         animation: bounce-slow 2s infinite ease-in-out;
+      }
+      .constructor-grid {
+        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+        background-size: 24px 24px;
+      }
+      .flicker {
+        animation: flicker 3s infinite;
+      }
+      @keyframes flicker {
+        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+        20%, 24%, 55% { opacity: 0.4; }
       }
     </style>
 
@@ -116,7 +130,7 @@
           <!-- Заголовок на 20% меньше -->
           <h2 class="text-3xl md:text-5xl font-display font-black mb-10 italic uppercase text-center">ЧТО НОВОГО?</h2>
           
-          <!-- Вторая стрелочка вниз (НОВАЯ) -->
+          <!-- Вторая стрелочка вниз -->
           <div class="animate-bounce-slow opacity-50 mb-16">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
@@ -134,18 +148,14 @@
             </h3>
           </div>
           
-          <!-- Обновленный блок в стиле картинки -->
-          <div class="space-y-12 max-w-3xl mx-auto">
-            
-            <!-- Пункт 1 -->
+          <!-- Пункты с линиями -->
+          <div class="space-y-12 max-w-3xl mx-auto mb-32">
             <div class="flex items-start gap-6 group">
               <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
               <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
                 Базовые навыки соблазнения, простым языком, в простом формате для повторения (1-2-3)
               </p>
             </div>
-
-            <!-- Пункт 2 -->
             <div class="flex items-start gap-6 group">
               <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
               <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
@@ -153,15 +163,82 @@
                 <span class="text-brand-neon font-black">предсказуемо за 5-10 часов</span> без осечек.
               </p>
             </div>
-
-            <!-- Пункт 3 -->
             <div class="flex items-start gap-6 group">
               <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
               <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
                 Обучение адаптировано для обычных парней. Не нужно рассказывать про яхты и большие бизнесы.
               </p>
             </div>
+          </div>
 
+          <!-- NEW SECTION: CONSTRUCTOR -->
+          <div class="w-full max-w-5xl constructor-grid border border-white/5 rounded-[40px] p-8 md:p-16 mb-24 relative overflow-hidden">
+             <!-- Фоновый декор -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent"></div>
+            
+            <div class="text-center mb-16">
+              <h4 class="text-2xl md:text-4xl font-display font-black mb-6 flicker">
+                ВОТ ВЫ ЛОМАЕТЕ ГОЛОВУ...
+              </h4>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="border border-white/10 p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
+                  <span class="block text-brand-neon font-display font-bold text-xl mb-1">ЧТО</span>
+                  <span class="text-xs uppercase text-gray-400">сказать?</span>
+                </div>
+                <div class="border border-white/10 p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
+                  <span class="block text-brand-neon font-display font-bold text-xl mb-1">КОГДА</span>
+                  <span class="text-xs uppercase text-gray-400">сказать?</span>
+                </div>
+                <div class="border border-white/10 p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
+                  <span class="block text-brand-neon font-display font-bold text-xl mb-1">КАК</span>
+                  <span class="text-xs uppercase text-gray-400">сделать?</span>
+                </div>
+                <div class="border border-white/10 p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
+                  <span class="block text-brand-accent font-display font-bold text-xl mb-1">КАКИМ</span>
+                  <span class="text-xs uppercase text-gray-400">образом?</span>
+                </div>
+                <div class="border border-white/10 p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform col-span-2 md:col-span-1">
+                  <span class="block text-white font-display font-bold text-xl mb-1">КАК</span>
+                  <span class="text-xs uppercase text-gray-400">поступить?</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-12 mb-16">
+              <div class="flex-1 text-center md:text-left">
+                <p class="text-xl md:text-3xl font-display font-bold leading-tight mb-4">
+                  Мы разбиваем соблазнение на <span class="text-brand-neon underline decoration-brand-neon/30 underline-offset-8">микроэтапы</span>
+                </p>
+                <p class="text-gray-400 md:text-lg">С конкретными примерами, шаблонами и четкими рекомендациями.</p>
+              </div>
+              <div class="w-px h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"></div>
+              <div class="flex-1 space-y-6">
+                <!-- Timeline elements -->
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 flex-shrink-0 rounded-full border border-brand-neon flex items-center justify-center font-display font-black text-brand-neon text-sm">15с</div>
+                  <p class="text-sm md:text-base text-white/80">Что сказать в первые секунды</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 flex-shrink-0 rounded-full border border-brand-accent flex items-center justify-center font-display font-black text-brand-accent text-sm">40с</div>
+                  <p class="text-sm md:text-base text-white/80">Что сделать, чтобы зацепить</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 flex-shrink-0 rounded-full border border-white flex items-center justify-center font-display font-black text-white text-sm">TXT</div>
+                  <p class="text-sm md:text-base text-white/80">Что написать первым сообщением</p>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 flex-shrink-0 rounded-full border border-brand-neon bg-brand-neon flex items-center justify-center font-display font-black text-brand-dark text-sm">OUT</div>
+                  <p class="text-sm md:text-base text-white/80">Как позвать на встречу без отказа</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center pt-8 border-t border-white/5">
+              <p class="text-gray-500 uppercase tracking-widest text-xs mb-4">В итоге ты получаешь</p>
+              <h3 class="text-4xl md:text-7xl font-display font-black text-white neon-glow uppercase leading-none">
+                КОНСТРУКТОР <br/> <span class="text-brand-neon">СОБЛАЗНЕНИЯ</span>
+              </h3>
+            </div>
           </div>
         </div>
       </section>
@@ -172,7 +249,7 @@
           <h3 class="text-3xl md:text-5xl font-display font-black mb-8 leading-tight uppercase">ГОТОВ К ПЕРЕМЕНАМ?</h3>
           <button 
             onclick="window.open('https://t.me/Bolshezapis_bot', '_blank')"
-            class="w-full bg-brand-dark text-white font-display font-bold py-6 px-10 rounded-2xl text-xl hover:bg-brand-neon hover:text-brand-dark transition-all active:scale-95 uppercase cursor-pointer"
+            class="w-full bg-brand-dark text-white font-display font-bold py-6 px-10 rounded-2xl text-xl hover:bg-brand-neon hover:text-brand-dark transition-all active:scale-95 uppercase cursor-pointer shadow-lg"
           >
             ЗАПИСАТЬСЯ В ПРЕДЗАПИСЬ
           </button>
