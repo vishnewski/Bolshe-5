@@ -8,7 +8,7 @@
     <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Критические стили -->
     <style>
@@ -36,10 +36,6 @@
       }
       .neon-glow {
         text-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
-      }
-      .card-bg {
-        background: rgba(25, 25, 25, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       @keyframes bounce-slow {
         0%, 100% { transform: translateY(0); }
@@ -105,7 +101,7 @@
           </h1>
           <div class="h-1 w-24 bg-brand-neon mx-auto mb-12"></div>
           
-          <!-- Стрелочка вниз -->
+          <!-- Первая стрелочка вниз -->
           <div class="animate-bounce-slow opacity-50">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
@@ -115,49 +111,57 @@
       </section>
 
       <!-- CONTENT SECTION -->
-      <section class="py-24 px-4 text-center">
-        <div class="max-w-5xl mx-auto">
+      <section class="py-24 px-4">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
           <!-- Заголовок на 20% меньше -->
-          <h2 class="text-3xl md:text-6xl font-display font-black mb-10 italic uppercase">ЧТО НОВОГО?</h2>
+          <h2 class="text-3xl md:text-5xl font-display font-black mb-10 italic uppercase text-center">ЧТО НОВОГО?</h2>
           
-          <div class="mb-20">
+          <!-- Вторая стрелочка вниз (НОВАЯ) -->
+          <div class="animate-bounce-slow opacity-50 mb-16">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+          </div>
+
+          <div class="mb-20 text-center">
             <p class="text-brand-accent font-display font-bold text-sm md:text-xl mb-4 tracking-widest uppercase">
               Мы запускаем 5 месячный курс
             </p>
             <!-- Заголовок на 20% больше -->
-            <h3 class="text-3xl md:text-7xl font-display font-black text-white leading-tight uppercase">
+            <h3 class="text-3xl md:text-8xl font-display font-black text-white leading-tight uppercase">
               СРЕДНЯЯ ШКОЛА <br class="hidden md:block" />
               <span class="text-brand-neon">СОБЛАЗНЕНИЯ</span>
             </h3>
           </div>
           
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="card-bg p-8 rounded-3xl text-left transform hover:-translate-y-2 transition-all">
-              <div class="w-12 h-12 bg-brand-neon/20 rounded-xl flex items-center justify-center mb-6">
-                <div class="w-4 h-4 bg-brand-neon rounded-full"></div>
-              </div>
-              <h3 class="text-2xl font-display font-bold mb-4 text-brand-neon uppercase">ПРОСТОТА</h3>
-              <p class="text-gray-400 leading-relaxed">Базовые навыки соблазнения простым языком. Повторяй шаги: 1, 2, 3.</p>
+          <!-- Обновленный блок в стиле картинки -->
+          <div class="space-y-12 max-w-3xl mx-auto">
+            
+            <!-- Пункт 1 -->
+            <div class="flex items-start gap-6 group">
+              <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
+              <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
+                Базовые навыки соблазнения, простым языком, в простом формате для повторения (1-2-3)
+              </p>
             </div>
 
-            <!-- Card 2 -->
-            <div class="card-bg p-8 rounded-3xl text-left transform hover:-translate-y-2 transition-all">
-              <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center mb-6">
-                <div class="w-4 h-4 bg-brand-accent rounded-full"></div>
-              </div>
-              <h3 class="text-2xl font-display font-bold mb-4 text-brand-accent uppercase">РЕЗУЛЬТАТ</h3>
-              <p class="text-gray-400 leading-relaxed">Предсказуемый итог за 10 часов практики без лишних осечек.</p>
+            <!-- Пункт 2 -->
+            <div class="flex items-start gap-6 group">
+              <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
+              <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
+                Навыки, которые позволят соблазнять девушек своего (и +0,5 балла) уровня 
+                <span class="text-brand-neon font-black">предсказуемо за 5-10 часов</span> без осечек.
+              </p>
             </div>
 
-            <!-- Card 3 -->
-            <div class="card-bg p-8 rounded-3xl text-left transform hover:-translate-y-2 transition-all">
-              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6">
-                <div class="w-4 h-4 bg-white rounded-full"></div>
-              </div>
-              <h3 class="text-2xl font-display font-bold mb-4 uppercase">РЕАЛЬНОСТЬ</h3>
-              <p class="text-gray-400 leading-relaxed">Адаптировано для обычных парней. Без сказок про яхты и миллионы.</p>
+            <!-- Пункт 3 -->
+            <div class="flex items-start gap-6 group">
+              <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
+              <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
+                Обучение адаптировано для обычных парней. Не нужно рассказывать про яхты и большие бизнесы.
+              </p>
             </div>
+
           </div>
         </div>
       </section>
