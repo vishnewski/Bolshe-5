@@ -37,6 +37,9 @@
       .neon-glow {
         text-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
       }
+      .accent-glow {
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+      }
       @keyframes bounce-slow {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(10px); }
@@ -61,6 +64,24 @@
       .module-card:hover {
         transform: translateY(-5px);
         background: rgba(255, 255, 255, 0.05);
+      }
+      .highlight-tag {
+        display: inline-block;
+        background: rgba(204, 255, 0, 0.15);
+        color: #ffffff;
+        font-weight: 700;
+        padding: 0 4px;
+        border-radius: 2px;
+        border-left: 2px solid var(--brand-neon);
+      }
+      .highlight-tag-accent {
+        display: inline-block;
+        background: rgba(255, 0, 255, 0.15);
+        color: #ffffff;
+        font-weight: 700;
+        padding: 0 4px;
+        border-radius: 2px;
+        border-left: 2px solid var(--brand-accent);
       }
     </style>
 
@@ -138,8 +159,8 @@
             </svg>
           </div>
 
-          <div class="mb-20 text-center">
-            <p class="text-brand-accent font-display font-bold text-[11px] sm:text-sm md:text-xl mb-4 tracking-widest uppercase">
+          <div class="mb-20 text-center w-full">
+            <p class="text-brand-accent font-display font-bold text-[10px] sm:text-sm md:text-xl mb-4 tracking-widest uppercase">
               Мы запускаем 5 месячный курс
             </p>
             <h3 class="text-3xl md:text-8xl font-display font-black text-white leading-tight uppercase text-center">
@@ -284,7 +305,6 @@
 
               <!-- Detailed Module 1 -->
               <div class="mb-24">
-                <!-- Header OUTSIDE the border -->
                 <div class="mb-6 text-center md:text-left">
                     <span class="text-brand-neon font-display font-black text-lg md:text-2xl uppercase tracking-tight">
                         1 МЕСЯЦ — СЕНТЯБРЬ. 1 МОДУЛЬ.
@@ -296,52 +316,49 @@
                   
                   <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div class="w-full">
-                      <!-- Responsive text size for mobile to prevent "й" wrap -->
-                      <h3 class="text-[1.35rem] sm:text-3xl md:text-5xl font-display font-black uppercase text-white leading-tight break-words">
+                      <h3 class="text-[1.3rem] sm:text-3xl md:text-5xl font-display font-black uppercase text-white leading-tight break-words">
                         СТРУКТУРНЫЙ МЕТОД
                       </h3>
                     </div>
                   </div>
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-                    <!-- Topics -->
                     <div>
                       <h4 class="text-brand-neon font-display font-bold text-sm mb-6 uppercase tracking-widest">Темы модуля:</h4>
                       <ul class="space-y-4">
                         <li class="flex gap-4 items-start">
                           <span class="text-brand-neon font-black text-xl leading-none">▸</span>
                           <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Структура, которая позволяет соблазнять в среднем <span class="text-brand-neon font-bold">от 5 до 10 часов</span> коммуникации.
+                            Структура, которая позволяет соблазнять в среднем <span class="highlight-tag">от 5 до 10 часов</span> коммуникации.
                           </p>
                         </li>
                         <li class="flex gap-4 items-start">
                           <span class="text-brand-neon font-black text-xl leading-none">▸</span>
                           <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Та <span class="text-brand-neon font-bold">версия структуры, с которой ее стоит начинать осваивать</span>, и только потом переходить на более сложные нюансы.
+                            Та версия структуры, с которой ее <span class="highlight-tag">стоит начинать</span> осваивать, и только потом переходить на более сложные нюансы.
                           </p>
                         </li>
                         <li class="flex gap-4 items-start">
                           <span class="text-brand-neon font-black text-xl leading-none">▸</span>
                           <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Как понять что пора передвигаться <span class="text-brand-neon font-bold">с этапа на этап</span>.
+                            Как понять что пора передвигаться <span class="highlight-tag">с этапа на этап</span>.
                           </p>
                         </li>
                         <li class="flex gap-4 items-start">
                           <span class="text-brand-neon font-black text-xl leading-none">▸</span>
                           <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Ввод <span class="text-brand-neon font-bold">заготовленного материала</span> в соблазнение, чтобы не ломать голову над каждым действием, и действовать на автомате.
+                            Ввод <span class="highlight-tag">заготовленного материала</span> в соблазнение, чтобы не ломать голову над каждым действием, и действовать на автомате.
                           </p>
                         </li>
                         <li class="flex gap-4 items-start">
                           <span class="text-brand-neon font-black text-xl leading-none">▸</span>
                           <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            <span class="text-brand-neon font-bold">Фрейм</span>: как выстроить коммуникацию так, чтобы девушка готова была к сексу на 1, 2 свидании.
+                            <span class="highlight-tag">Фрейм</span>: как выстроить коммуникацию так, чтобы девушка готова была к сексу на 1, 2 свидании.
                           </p>
                         </li>
                       </ul>
                     </div>
 
-                    <!-- Result: Adapted for mobile -->
                     <div class="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-4 md:p-8 flex flex-col justify-center w-full mx-auto md:mx-0 shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
                       <h4 class="text-white font-display font-bold text-[10px] md:text-sm mb-3 md:mb-4 uppercase tracking-widest flex items-center gap-2">
                         <span class="w-1.5 h-1.5 md:w-2 md:h-2 bg-brand-neon rounded-full animate-pulse"></span>
@@ -355,20 +372,81 @@
                 </div>
               </div>
 
+              <!-- Detailed Module 2: ВЛЕЧЕНИЕ -->
+              <div class="mb-24">
+                <!-- Header OUTSIDE the border -->
+                <div class="mb-6 text-center md:text-left">
+                    <span class="text-brand-accent font-display font-black text-lg md:text-2xl uppercase tracking-tight accent-glow">
+                        2 МЕСЯЦ — ОКТЯБРЬ. 2 МОДУЛЬ.
+                    </span>
+                </div>
+
+                <div class="constructor-grid border-2 border-brand-accent/30 rounded-[30px] md:rounded-[40px] p-6 md:p-12 relative overflow-hidden shadow-[0_0_30px_rgba(255,0,255,0.1)]">
+                  <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 blur-3xl -z-10"></div>
+                  
+                  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                    <div class="w-full">
+                      <h3 class="text-3xl sm:text-4xl md:text-6xl font-display font-black uppercase text-white leading-tight break-words">
+                        ВЛЕЧЕНИЕ
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+                    <!-- Topics -->
+                    <div>
+                      <h4 class="text-brand-accent font-display font-bold text-sm mb-6 uppercase tracking-widest">Темы модуля:</h4>
+                      <ul class="space-y-4">
+                        <li class="flex gap-4 items-start">
+                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
+                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            <span class="highlight-tag-accent">Концепция балльности</span>. Как мужчине <span class="highlight-tag-accent">вырасти в цене</span> на брачном рынке? Быстрые и долгие способы.
+                          </p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
+                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            <span class="highlight-tag-accent">Научная эволюционная база</span> по влечению.
+                          </p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
+                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Разбор ключевых <span class="highlight-tag-accent">триггеров</span>, самых обязательных и эффективных на большинстве девушек.
+                          </p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
+                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Как их применять <span class="highlight-tag-accent">вербально, не вербально, визуально</span>.
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <!-- Result: Adapted for mobile -->
+                    <div class="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-4 md:p-8 flex flex-col justify-center w-full mx-auto md:mx-0 shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
+                      <h4 class="text-white font-display font-bold text-[10px] md:text-sm mb-3 md:mb-4 uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 md:w-2 md:h-2 bg-brand-accent rounded-full animate-pulse"></span>
+                        Результат:
+                      </h4>
+                      <p class="text-white text-[15px] md:text-xl font-medium leading-relaxed italic">
+                        Вы будете лучше понимать устройство женщины, и минимальную базу воздействия на нее, чтобы вызвать влечение в короткий срок.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Other Modules Summary Grid -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="module-card bg-white/5 border border-white/10 rounded-3xl p-8 relative group">
-                  <span class="absolute top-4 right-6 text-5xl font-display font-black text-brand-accent opacity-10">02</span>
-                  <div class="mb-6 inline-block bg-brand-accent text-white font-display font-black px-4 py-1 text-xs rounded">2 МЕСЯЦ</div>
-                  <h4 class="text-xl md:text-2xl font-display font-bold mb-4 uppercase">2 МОДУЛЬ: ГЛУБИНА</h4>
-                  <p class="text-gray-400 text-sm md:text-base">Разбор техник удержания интереса и работы с подсознанием в переписке.</p>
-                </div>
                 <div class="module-card bg-white/5 border border-white/10 rounded-3xl p-8 relative group">
                   <span class="absolute top-4 right-6 text-5xl font-display font-black text-white opacity-10">03</span>
                   <div class="mb-6 inline-block bg-white text-brand-dark font-display font-black px-4 py-1 text-xs rounded">3 МЕСЯЦ</div>
                   <h4 class="text-xl md:text-2xl font-display font-bold mb-4 uppercase">3 МОДУЛЬ: ФИНАЛ</h4>
                   <p class="text-gray-400 text-sm md:text-base">Прямое соблазнение, закрытие встреч и масштабирование результатов.</p>
                 </div>
+                <!-- You can add more placeholder modules here if needed -->
               </div>
 
               <!-- Start Date Banner -->
