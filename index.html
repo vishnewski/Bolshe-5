@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Сообщество БОЛЬШЕ | Season 2</title>
     
-    <!-- Шрифты загружаем первыми -->
+    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
-    <!-- Критические стили: работают СРАЗУ, даже без интернета или на старых Android -->
+    <!-- Критические стили -->
     <style>
       :root {
         --brand-neon: #ccff00;
@@ -37,14 +37,20 @@
       .neon-glow {
         text-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
       }
-      /* Фикс для старых браузеров где не работает backdrop-filter */
       .card-bg {
         background: rgba(25, 25, 25, 0.9);
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
+      @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+      }
+      .animate-bounce-slow {
+        animation: bounce-slow 2s infinite ease-in-out;
+      }
     </style>
 
-    <!-- Tailwind CDN (v3.4.5) -->
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.5"></script>
     <script>
       tailwind.config = {
@@ -65,22 +71,12 @@
         }
       }
     </script>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
-</head>
+  </head>
   <body class="bg-brand-dark text-white selection:bg-brand-neon selection:text-brand-dark">
     
-    <!-- Фоновая сетка -->
     <div class="fallback-grid"></div>
     
-    <!-- Светящиеся пятна -->
+    <!-- Декоративные пятна -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-[-1]">
       <div class="absolute -top-[10%] -left-[10%] w-[150vw] h-[150vw] sm:w-[800px] sm:h-[800px] bg-[radial-gradient(circle,rgba(204,255,0,0.15),transparent_70%)]"></div>
       <div class="absolute bottom-[10%] -right-[10%] w-[150vw] h-[150vw] sm:w-[800px] sm:h-[800px] bg-[radial-gradient(circle,rgba(255,0,255,0.1),transparent_70%)]"></div>
@@ -88,24 +84,43 @@
 
     <main class="relative z-10 w-full">
       
-      <!-- HERO -->
-      <section class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-20">
-        <div class="relative">
+      <!-- HERO SECTION -->
+      <section class="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 pt-20">
+        <div class="relative flex flex-col items-center">
           <span class="absolute -top-10 -right-4 sm:-right-10 rotate-12 bg-brand-neon text-brand-dark px-4 py-1 font-display font-black text-sm md:text-xl rounded shadow-[0_0_30px_rgba(204,255,0,0.6)] animate-bounce">
             SEASON 2
           </span>
           <p class="uppercase tracking-[0.3em] text-gray-400 text-xs md:text-xl mb-4 font-sans font-semibold">Сообщество</p>
-          <h1 class="text-6xl sm:text-8xl md:text-[12rem] font-display font-black leading-none mb-4 neon-glow">
+          <h1 class="text-5xl sm:text-7xl md:text-[10.8rem] font-display font-black leading-none mb-4 neon-glow uppercase">
             БОЛЬШЕ
           </h1>
-          <div class="h-1 w-24 bg-brand-neon mx-auto mb-10"></div>
+          <div class="h-1 w-24 bg-brand-neon mx-auto mb-12"></div>
+          
+          <!-- Стрелочка вниз -->
+          <div class="animate-bounce-slow opacity-50">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+          </div>
         </div>
       </section>
 
-      <!-- NEW SECTION -->
+      <!-- CONTENT SECTION -->
       <section class="py-24 px-4 text-center">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-4xl md:text-7xl font-display font-black mb-12 italic">ЧТО НОВОГО?</h2>
+        <div class="max-w-5xl mx-auto">
+          <!-- Заголовок на 20% меньше -->
+          <h2 class="text-3xl md:text-6xl font-display font-black mb-10 italic uppercase">ЧТО НОВОГО?</h2>
+          
+          <div class="mb-20">
+            <p class="text-brand-accent font-display font-bold text-sm md:text-xl mb-4 tracking-widest uppercase">
+              Мы запускаем 5 месячный курс
+            </p>
+            <!-- Заголовок на 20% больше -->
+            <h3 class="text-3xl md:text-7xl font-display font-black text-white leading-tight uppercase">
+              СРЕДНЯЯ ШКОЛА <br class="hidden md:block" />
+              <span class="text-brand-neon">СОБЛАЗНЕНИЯ</span>
+            </h3>
+          </div>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Card 1 -->
@@ -113,7 +128,7 @@
               <div class="w-12 h-12 bg-brand-neon/20 rounded-xl flex items-center justify-center mb-6">
                 <div class="w-4 h-4 bg-brand-neon rounded-full"></div>
               </div>
-              <h3 class="text-2xl font-display font-bold mb-4 text-brand-neon">ПРОСТОТА</h3>
+              <h3 class="text-2xl font-display font-bold mb-4 text-brand-neon uppercase">ПРОСТОТА</h3>
               <p class="text-gray-400 leading-relaxed">Базовые навыки соблазнения простым языком. Повторяй шаги: 1, 2, 3.</p>
             </div>
 
@@ -122,7 +137,7 @@
               <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center mb-6">
                 <div class="w-4 h-4 bg-brand-accent rounded-full"></div>
               </div>
-              <h3 class="text-2xl font-display font-bold mb-4 text-brand-accent">РЕЗУЛЬТАТ</h3>
+              <h3 class="text-2xl font-display font-bold mb-4 text-brand-accent uppercase">РЕЗУЛЬТАТ</h3>
               <p class="text-gray-400 leading-relaxed">Предсказуемый итог за 10 часов практики без лишних осечек.</p>
             </div>
 
@@ -131,7 +146,7 @@
               <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6">
                 <div class="w-4 h-4 bg-white rounded-full"></div>
               </div>
-              <h3 class="text-2xl font-display font-bold mb-4">РЕАЛЬНОСТЬ</h3>
+              <h3 class="text-2xl font-display font-bold mb-4 uppercase">РЕАЛЬНОСТЬ</h3>
               <p class="text-gray-400 leading-relaxed">Адаптировано для обычных парней. Без сказок про яхты и миллионы.</p>
             </div>
           </div>
@@ -141,21 +156,4 @@
       <!-- CTA -->
       <section class="py-20 px-4 text-center">
         <div class="max-w-2xl mx-auto bg-white text-black p-10 md:p-16 rounded-[40px] shadow-[0_0_50px_rgba(255,255,255,0.2)]">
-          <h3 class="text-3xl md:text-5xl font-display font-black mb-8 leading-tight">ГОТОВ К ПЕРЕМЕНАМ?</h3>
-          <button class="w-full bg-brand-dark text-white font-display font-bold py-6 px-10 rounded-2xl text-xl hover:bg-brand-neon hover:text-brand-dark transition-all active:scale-95">
-            ЗАПИСАТЬСЯ НА КУРС
-          </button>
-        </div>
-      </section>
-
-      <!-- FOOTER -->
-      <footer class="py-20 border-t border-white/5 text-center">
-        <p class="text-gray-600 font-mono text-sm mb-6 italic">© 2024 BOLSHE COMMUNITY SEASON 2</p>
-        <p class="text-white/80 font-display font-black text-2xl md:text-4xl uppercase tracking-[0.5em] animate-pulse">
-          ЭТО ВСЕ
-        </p>
-      </footer>
-
-    </main>
-  </body>
-</html>
+          <h3 class="text-3xl md:text-5xl font-display font-black mb-8 leading-tight">ГОТОВ К ПЕРЕМЕНАМ?
