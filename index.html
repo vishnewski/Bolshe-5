@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Сообщество БОЛЬШЕ | Season 2</title>
     
-    <!-- Шрифты загружаем в начале -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
     <style>
-      /* Основные переменные и сброс */
       :root {
-        --neon: #ccff00;
-        --accent: #ff00ff;
-        --blue: #00f0ff;
-        --bg: #050505;
-        --card: rgba(255, 255, 255, 0.05);
-        --border: rgba(255, 255, 255, 0.1);
+        --brand-neon: #ccff00;
+        --brand-accent: #ff00ff;
+        --brand-blue: #00f0ff;
+        --bg-dark: #050505;
       }
 
       * {
@@ -29,78 +25,95 @@
       }
 
       body {
-        background-color: var(--bg);
+        background-color: var(--bg-dark);
         color: #ffffff;
         font-family: 'Inter', sans-serif;
-        line-height: 1.5;
-        overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        line-height: 1.5;
       }
 
-      /* Фоновые эффекты - легкие для мобилок */
-      .bg-effects {
+      /* Фоновая сетка и эффекты */
+      .fallback-grid {
         position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-      }
-
-      .bg-grid {
-        position: absolute;
         inset: 0;
         background-image: 
           linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-        background-size: 30px 30px;
+        background-size: 40px 40px;
+        z-index: -1;
       }
 
-      .bg-glow {
+      .bg-glow-container {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .glow-blob-1 {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.1), transparent 50%),
-                    radial-gradient(circle at 90% 90%, rgba(255, 0, 255, 0.08), transparent 50%);
+        top: -10%;
+        left: -10%;
+        width: 150vw;
+        height: 150vw;
+        max-width: 800px;
+        max-height: 800px;
+        background: radial-gradient(circle, rgba(204,255,0,0.15), transparent 70%);
       }
 
-      /* Типографика */
-      .font-display { font-family: 'Unbounded', sans-serif; text-transform: uppercase; }
-      .text-neon { color: var(--neon); }
-      .text-accent { color: var(--accent); }
-      .neon-glow { text-shadow: 0 0 20px rgba(204, 255, 0, 0.4); }
+      .glow-blob-2 {
+        position: absolute;
+        bottom: 10%;
+        right: -10%;
+        width: 150vw;
+        height: 150vw;
+        max-width: 800px;
+        max-height: 800px;
+        background: radial-gradient(circle, rgba(255,0,255,0.1), transparent 70%);
+      }
 
       .container {
-        max-width: 800px;
+        width: 100%;
+        max-width: 896px; /* max-w-4xl equivalent */
         margin: 0 auto;
         padding: 0 20px;
         position: relative;
         z-index: 10;
       }
 
+      /* Typography */
+      .font-display { font-family: 'Unbounded', sans-serif; text-transform: uppercase; }
+      .neon-glow { text-shadow: 0 0 15px rgba(204, 255, 0, 0.4); }
+      .text-neon { color: var(--brand-neon); }
+      .text-accent { color: var(--brand-accent); }
+      .text-gray { color: #9ca3af; }
+
       /* Hero */
       .hero {
-        min-height: 80vh;
+        min-height: 85vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        position: relative;
-        padding-top: 60px;
+        padding-top: 80px;
       }
 
       .season-sticker {
         position: absolute;
-        top: 20%;
-        right: 0;
-        background: var(--neon);
-        color: #000;
+        top: -40px;
+        right: -16px;
+        background: var(--brand-neon);
+        color: var(--bg-dark);
+        padding: 4px 16px;
         font-family: 'Unbounded';
         font-weight: 900;
-        padding: 6px 16px;
+        font-size: 14px;
         border-radius: 4px;
         transform: rotate(12deg);
-        font-size: 14px;
-        box-shadow: 0 0 30px rgba(204, 255, 0, 0.5);
+        box-shadow: 0 0 30px rgba(204, 255, 0, 0.6);
         animation: bounce 2s infinite ease-in-out;
       }
 
@@ -109,133 +122,203 @@
         50% { transform: rotate(12deg) translateY(-10px); }
       }
 
-      .hero p {
-        letter-spacing: 5px;
-        color: #666;
-        font-weight: 700;
-        margin-bottom: 10px;
-        font-size: 12px;
+      .hero h1 {
+        font-size: clamp(3rem, 15vw, 10.8rem);
+        font-weight: 900;
+        line-height: 0.85;
+        margin-bottom: 1rem;
       }
 
-      .hero h1 {
-        font-size: clamp(48px, 15vw, 120px);
-        line-height: 0.9;
-        margin-bottom: 20px;
+      .hero p {
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: #9ca3af;
+        font-size: clamp(0.75rem, 2vw, 1.25rem);
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .hero-line {
+        height: 4px;
+        width: 96px;
+        background: var(--brand-neon);
+        margin: 0 auto 48px;
+      }
+
+      .scroll-arrow {
+        opacity: 0.5;
+        animation: bounce-slow 2s infinite ease-in-out;
+      }
+
+      @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
       }
 
       /* Sections */
-      .section { padding: 80px 0; text-align: center; }
-      .section-title { font-size: clamp(24px, 6vw, 42px); margin-bottom: 40px; }
+      .section { padding: 96px 0; display: flex; flex-direction: column; align-items: center; }
+      .section-title { font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 900; margin-bottom: 40px; font-style: italic; text-align: center; }
 
       /* Points */
-      .point-item {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 30px;
-        text-align: left;
+      .point-item { display: flex; gap: 24px; margin-bottom: 48px; text-align: left; width: 100%; max-width: 768px; }
+      .point-line { width: 6px; background: var(--brand-neon); border-radius: 9999px; flex-shrink: 0; box-shadow: 0 0 15px rgba(204, 255, 0, 0.5); }
+      .point-text { font-size: clamp(1.125rem, 3vw, 1.5rem); font-weight: 500; line-height: 1.6; color: rgba(255,255,255,0.9); }
+
+      /* CTA Box */
+      .cta-box {
+        background: #ffffff;
+        color: #000000;
+        padding: clamp(2rem, 5vw, 4rem);
+        border-radius: 40px;
+        text-align: center;
+        width: 100%;
+        max-width: 672px;
+        margin-bottom: 80px;
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
       }
 
-      .point-line {
-        width: 4px;
-        background: var(--neon);
-        border-radius: 10px;
-        flex-shrink: 0;
-        box-shadow: 0 0 10px var(--neon);
-      }
-
-      .point-text { font-size: 18px; font-weight: 500; color: #eee; }
-      .highlight { 
-        background: rgba(204, 255, 0, 0.15); 
-        border-left: 3px solid var(--neon); 
-        padding: 0 6px; 
-        font-weight: 700; 
-      }
-
-      /* Constructor */
-      .constructor {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 30px;
-        padding: 40px 20px;
-        margin: 40px 0;
-      }
-
-      .mini-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-bottom: 30px;
-      }
-
-      @media (min-width: 600px) {
-        .mini-grid { grid-template-columns: repeat(5, 1fr); }
-      }
-
-      .mini-card {
-        background: rgba(0,0,0,0.3);
-        padding: 15px;
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.05);
-      }
-
-      .mini-card .val { color: var(--neon); font-family: 'Unbounded'; font-weight: 700; font-size: 18px; display: block; }
-      .mini-card .sub { font-size: 10px; color: #555; text-transform: uppercase; }
-
-      /* Module Cards */
-      .module-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        padding: 30px;
-        margin-bottom: 25px;
-        text-align: left;
-      }
-
-      .module-card h3 { font-size: 28px; margin-bottom: 20px; }
-      .module-list { list-style: none; }
-      .module-list li { margin-bottom: 12px; padding-left: 20px; position: relative; font-size: 15px; }
-      .module-list li::before { content: '▸'; position: absolute; left: 0; color: var(--neon); }
-
-      .result-sticker {
-        background: #fff;
-        color: #000;
-        padding: 20px;
-        border-radius: 16px;
-        transform: rotate(-1deg);
-        margin-top: 20px;
-      }
-
-      .result-sticker small { display: block; font-size: 10px; font-weight: 900; color: #888; text-transform: uppercase; margin-bottom: 5px; }
-      .result-sticker p { font-weight: 700; font-size: 16px; line-height: 1.3; }
-
-      /* Price */
-      .price-block { margin: 60px 0; }
-      .old-price { text-decoration: line-through; color: #444; font-family: 'Unbounded'; font-size: 24px; }
-      .promo-text { color: var(--accent); font-family: 'Unbounded'; font-size: 16px; margin: 10px 0; }
-      .new-price { font-size: 80px; font-family: 'Unbounded'; font-weight: 900; color: var(--neon); line-height: 1; }
-      .new-price span { font-size: 30px; margin-left: 5px; }
-
-      /* Button */
-      .btn {
+      .btn-dark {
         display: block;
         width: 100%;
-        background: #fff;
-        color: #000;
-        padding: 22px;
-        border-radius: 20px;
+        background: var(--bg-dark);
+        color: #ffffff;
         font-family: 'Unbounded';
-        font-weight: 900;
-        font-size: 18px;
+        font-weight: 700;
+        padding: 20px;
+        border-radius: 16px;
+        font-size: clamp(1.125rem, 2vw, 1.25rem);
         text-decoration: none;
-        box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-        margin-top: 20px;
+        transition: all 0.3s;
+        text-align: center;
       }
 
-      .btn:active { transform: scale(0.97); }
+      .btn-dark:active { transform: scale(0.95); }
 
-      .footer-note { font-size: 11px; color: #444; margin-top: 30px; text-transform: uppercase; font-weight: 700; }
+      /* Constructor */
+      .constructor-wrapper {
+        width: 100%;
+        max-width: 80rem;
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 30px;
+        padding: clamp(1.25rem, 5vw, 4rem);
+        margin-bottom: 96px;
+        position: relative;
+        overflow: hidden;
+        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+        background-size: 24px 24px;
+      }
+
+      .constructor-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 64px;
+      }
+
+      @media (min-width: 768px) {
+        .constructor-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+      }
+
+      .grid-card {
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 12px;
+        border-radius: 12px;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(4px);
+      }
+
+      .grid-card .label { display: block; color: var(--brand-neon); font-family: 'Unbounded'; font-weight: 700; font-size: clamp(1.125rem, 2vw, 1.25rem); margin-bottom: 4px; }
+      .grid-card .sub { font-size: 10px; color: #9ca3af; text-transform: uppercase; }
+
+      .micro-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .step-row { display: flex; align-items: center; gap: 16px; }
+      .step-circle {
+        width: 40px; height: 40px; flex-shrink: 0;
+        border-radius: 9999px; border: 1px solid var(--circle-color, #fff);
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Unbounded'; font-weight: 900; font-size: 12px;
+        color: var(--circle-color, #fff);
+      }
+
+      /* Modules */
+      .module-item {
+        width: 100%;
+        border: 2px solid var(--module-border, rgba(204,255,0,0.3));
+        border-radius: 30px;
+        padding: clamp(1.5rem, 5vw, 3rem);
+        margin-bottom: 48px;
+        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+        background-size: 24px 24px;
+        position: relative;
+      }
+
+      .module-title { font-size: clamp(1.875rem, 6vw, 3.75rem); font-weight: 900; margin-bottom: 40px; }
+      .module-list { list-style: none; }
+      .module-list li { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; }
+      .module-list li span { color: var(--module-border); font-weight: 900; font-size: 20px; line-height: 1; }
+      .module-list li p { font-size: 14px; color: #d1d5db; }
+
+      .highlight-tag { background: rgba(204, 255, 0, 0.15); border-left: 2px solid var(--brand-neon); padding: 0 4px; font-weight: 700; }
+      .highlight-tag-accent { background: rgba(255, 0, 255, 0.15); border-left: 2px solid var(--brand-accent); padding: 0 4px; font-weight: 700; }
+      .highlight-tag-blue { background: rgba(0, 240, 255, 0.15); border-left: 2px solid var(--brand-blue); padding: 0 4px; font-weight: 700; }
+
+      .result-sticker {
+        background: #ffffff;
+        color: #000000;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        border-radius: 20px;
+        transform: rotate(-1deg);
+        margin-top: 40px;
+      }
+
+      .result-sticker h4 { font-family: 'Unbounded'; font-size: 10px; font-weight: 700; margin-bottom: 12px; color: #888; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+      .result-sticker .dot { width: 8px; height: 8px; background: var(--brand-neon); border-radius: 50%; }
+      .result-sticker p { font-size: clamp(0.938rem, 2vw, 1.25rem); font-weight: 700; font-style: italic; }
+
+      /* Price Block */
+      .price-block { text-align: center; margin: 64px 0; }
+      .old-price { font-size: clamp(1.5rem, 4vw, 2.25rem); color: #666; text-decoration: line-through; margin-bottom: 16px; font-family: 'Unbounded'; opacity: 0.5; }
+      .promo-text { color: var(--brand-accent); font-family: 'Unbounded'; font-weight: 900; font-size: clamp(1.25rem, 3vw, 1.875rem); margin-bottom: 16px; animation: flicker 3s infinite; }
+      .new-price { font-size: clamp(4.5rem, 15vw, 11rem); font-family: 'Unbounded'; font-weight: 900; color: var(--brand-neon); line-height: 1; text-shadow: 0 0 30px rgba(204, 255, 0, 0.3); }
+
+      @keyframes flicker {
+        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+        20%, 24%, 55% { opacity: 0.4; }
+      }
+
+      .btn-buy {
+        display: block;
+        width: 100%;
+        max-width: 576px;
+        background: #ffffff;
+        color: var(--bg-dark);
+        font-family: 'Unbounded';
+        font-weight: 900;
+        padding: 32px;
+        border-radius: 30px;
+        font-size: clamp(1.25rem, 4vw, 1.875rem);
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: 0 30px 60px -15px rgba(204,255,0,0.3);
+        margin: 0 auto;
+        text-align: center;
+      }
+      .btn-buy:active { transform: scale(0.95); }
+
+      @media (min-width: 768px) {
+        .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+      }
+
+      /* Helpers */
+      .flicker { animation: flicker 3s infinite; }
     </style>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
@@ -245,125 +328,231 @@
 }
 </script>
 </head>
-<body>
-    <div class="bg-effects">
-        <div class="bg-grid"></div>
-        <div class="bg-glow"></div>
+  <body>
+    
+    <div class="fallback-grid"></div>
+    <div class="bg-glow-container">
+      <div class="glow-blob-1"></div>
+      <div class="glow-blob-2"></div>
     </div>
 
     <main class="container">
-        <!-- Hero -->
-        <section class="hero">
-            <span class="season-sticker">SEASON 2</span>
-            <p>СООБЩЕСТВО</p>
-            <h1 class="font-display neon-glow">БОЛЬШЕ</h1>
-            <div style="width: 60px; height: 3px; background: var(--neon); margin: 0 auto;"></div>
-        </section>
+      
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div style="position: relative;">
+          <span class="season-sticker">SEASON 2</span>
+          <p>Сообщество</p>
+          <h1 class="font-display neon-glow">БОЛЬШЕ</h1>
+          <div class="hero-line"></div>
+          
+          <div class="scroll-arrow">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+          </div>
+        </div>
+      </section>
 
-        <!-- What's New -->
-        <section class="section">
-            <h2 class="font-display section-title" style="font-style: italic;">ЧТО НОВОГО?</h2>
-            
-            <div style="margin-bottom: 50px;">
-                <p class="text-accent font-display" style="font-size: 12px; letter-spacing: 4px; margin-bottom: 10px;">Мы запускаем 5 месячный курс</p>
-                <h3 class="font-display" style="font-size: clamp(32px, 8vw, 64px); line-height: 1;">
-                    СРЕДНЯЯ ШКОЛА <br>
-                    <span class="text-neon">СОБЛАЗНЕНИЯ</span>
-                </h3>
+      <!-- CONTENT SECTION -->
+      <section class="section">
+        <h2 class="font-display section-title uppercase">ЧТО НОВОГО?</h2>
+        
+        <div class="scroll-arrow" style="margin-bottom: 64px;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+          </svg>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 80px; width: 100%;">
+          <p class="text-accent font-display" style="font-weight: 700; font-size: 14px; letter-spacing: 0.2em; margin-bottom: 16px;">
+            Мы запускаем 5 месячный курс
+          </p>
+          <h3 class="font-display" style="font-size: clamp(2rem, 8vw, 5rem); line-height: 1.1;">
+            СРЕДНЯЯ ШКОЛА <br>
+            <span class="text-neon">СОБЛАЗНЕНИЯ</span>
+          </h3>
+        </div>
+        
+        <!-- Пункты -->
+        <div style="width: 100%; max-width: 768px; margin-bottom: 80px;">
+          <div class="point-item">
+            <div class="point-line"></div>
+            <p class="point-text">Базовые навыки соблазнения, простым языком, в простом формате для повторения (1-2-3)</p>
+          </div>
+          <div class="point-item">
+            <div class="point-line"></div>
+            <p class="point-text">
+              Навыки, которые позволят соблазнять девушек своего (и +0,5 балла) уровня 
+              <span class="text-neon" style="font-weight: 900;">предсказуемо за 5-10 часов</span> без осечек.
+            </p>
+          </div>
+          <div class="point-item">
+            <div class="point-line"></div>
+            <p class="point-text">Обучение адаптировано для обычных парней. Не нужно рассказывать про яхты и большие бизнесы.</p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+          <h3 class="font-display" style="font-size: clamp(1.5rem, 5vw, 3rem); font-weight: 900; margin-bottom: 32px;">ГОТОВ К ПЕРЕМЕНАМ?</h3>
+          <a href="https://t.me/tribute/app?startapp=sJmC" target="_blank" class="btn-dark uppercase">ОПЛАТИТЬ СО СКИДКОЙ</a>
+        </div>
+
+        <!-- CONSTRUCTOR SECTION -->
+        <div class="constructor-wrapper">
+          <div style="text-align: center; margin-bottom: 64px;">
+            <h4 class="font-display flicker" style="font-size: clamp(1.25rem, 4vw, 2.25rem); margin-bottom: 24px;">
+              ВОТ ВЫ ЛОМАЕТЕ ГОЛОВУ...
+            </h4>
+            <div class="constructor-grid">
+              <div class="grid-card"><span class="label">ЧТО</span><span class="sub">сказать?</span></div>
+              <div class="grid-card"><span class="label">КОГДА</span><span class="sub">сказать?</span></div>
+              <div class="grid-card"><span class="label">КАК</span><span class="sub">сделать?</span></div>
+              <div class="grid-card"><span class="label" style="color:var(--brand-accent)">КАКИМ</span><span class="sub">образом?</span></div>
+              <div class="grid-card" style="grid-column: span 2;"><span class="label" style="color:#fff">КАК</span><span class="sub">поступить?</span></div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 40px;">
+            <div style="text-align: center;">
+              <p class="font-display" style="font-size: clamp(1.25rem, 3vw, 1.875rem); line-height: 1.2; margin-bottom: 16px;">
+                Мы разбиваем соблазнение на <span class="text-neon" style="text-decoration: underline; text-underline-offset: 8px;">микроэтапы</span>
+              </p>
+              <p class="text-gray" style="font-size: 18px;">С конкретными примерами, шаблонами и четкими рекомендациями.</p>
             </div>
 
-            <div class="points">
-                <div class="point-item">
-                    <div class="point-line"></div>
-                    <div class="point-text">Базовые навыки соблазнения, простым языком, в простом формате для повторения (1-2-3).</div>
-                </div>
-                <div class="point-item">
-                    <div class="point-line"></div>
-                    <div class="point-text">Навыки, которые позволят соблазнять девушек своего уровня <span class="text-neon" style="font-weight: 900;">предсказуемо за 5-10 часов</span> без осечек.</div>
-                </div>
-                <div class="point-item">
-                    <div class="point-line"></div>
-                    <div class="point-text">Обучение адаптировано для <span class="highlight">обычных парней</span>. Не нужно рассказывать про яхты и большие бизнесы.</div>
-                </div>
+            <div class="micro-steps">
+              <div class="step-row">
+                <div class="step-circle" style="--circle-color: var(--brand-neon)">15с</div>
+                <p style="color: rgba(255,255,255,0.8)">Что сказать в первые секунды</p>
+              </div>
+              <div class="step-row">
+                <div class="step-circle" style="--circle-color: var(--brand-accent)">40с</div>
+                <p style="color: rgba(255,255,255,0.8)">Как быстро заполнит паузу</p>
+              </div>
+              <div class="step-row">
+                <div class="step-circle" style="--circle-color: #fff">TXT</div>
+                <p style="color: rgba(255,255,255,0.8)">Что написать первым сообщением</p>
+              </div>
+              <div class="step-row">
+                <div class="step-circle" style="--circle-color: var(--brand-neon); background: var(--brand-neon); color: var(--bg-dark);">OUT</div>
+                <p style="color: rgba(255,255,255,0.8)">Как позвать на встречу без отказа</p>
+              </div>
             </div>
+          </div>
 
-            <a href="https://t.me/tribute/app?startapp=sJmC" target="_blank" class="btn">ОПЛАТИТЬ СО СКИДКОЙ</a>
-        </section>
+          <div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px;">
+            <p class="text-gray" style="text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; margin-bottom: 16px;">В итоге ты получаешь</p>
+            <h3 class="font-display neon-glow" style="font-size: clamp(1.5rem, 8vw, 4.5rem); line-height: 1;">
+              КОНСТРУКТОР <br> <span class="text-neon">СОБЛАЗНЕНИЯ</span>
+            </h3>
+          </div>
+        </div>
 
-        <!-- Constructor -->
-        <section class="section">
-            <div class="constructor">
-                <h4 class="font-display" style="font-size: 20px; margin-bottom: 30px;">ВОТ ВЫ ЛОМАЕТЕ ГОЛОВУ...</h4>
-                <div class="mini-grid">
-                    <div class="mini-card"><span class="val">ЧТО</span><span class="sub">сказать?</span></div>
-                    <div class="mini-card"><span class="val">КОГДА</span><span class="sub">сказать?</span></div>
-                    <div class="mini-card"><span class="val">КАК</span><span class="sub">сделать?</span></div>
-                    <div class="mini-card"><span class="val" style="color:var(--accent)">КАКИМ</span><span class="sub">образом?</span></div>
-                    <div class="mini-card"><span class="val" style="color:#fff">КАК</span><span class="sub">поступить?</span></div>
-                </div>
-                <h3 class="font-display neon-glow" style="font-size: 32px;">КОНСТРУКТОР <br><span class="text-neon">СОБЛАЗНЕНИЯ</span></h3>
+        <!-- SECTION: COURSE STRUCTURE -->
+        <section style="width: 100%; padding: 64px 0;">
+          <div style="text-align: center; margin-bottom: 64px;">
+            <h2 class="font-display section-title">СТРУКТУРА КУРСА</h2>
+            <div style="max-width: 42rem; margin: 0 auto;">
+              <p class="font-display" style="font-size: 14px; color: #fff; margin-bottom: 24px;">
+                Модули выдаются в зависимости от времени непрерывной подписки на сообщество.
+              </p>
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; font-family: 'Unbounded'; font-weight: 900; font-size: 10px; text-transform: uppercase;">
+                <div style="background: rgba(204,255,0,0.1); color: var(--brand-neon); padding: 6px 12px; border: 1px solid rgba(204,255,0,0.2); border-radius: 8px;">1 месяц — 1 модуль</div>
+                <div style="background: rgba(255,0,255,0.1); color: var(--brand-accent); padding: 6px 12px; border: 1px solid rgba(255,0,255,0.2); border-radius: 8px;">2 месяц — 2 модуль</div>
+                <div style="background: rgba(0,240,255,0.1); color: var(--brand-blue); padding: 6px 12px; border: 1px solid rgba(0,240,255,0.2); border-radius: 8px;">3 месяц — 3 модуль</div>
+              </div>
             </div>
-        </section>
+          </div>
 
-        <!-- Modules -->
-        <section class="section">
-            <h2 class="font-display section-title">ТЕМЫ ЯНВАРЯ</h2>
+          <div style="margin-bottom: 24px; text-align: center;">
+            <span class="font-display neon-glow" style="color: var(--brand-neon); font-size: clamp(1.25rem, 4vw, 2.25rem);">ЭТО ТЕМЫ ЯНВАРЯ</span>
+          </div>
 
-            <div class="module-card">
-                <h3 class="font-display">СТРУКТУРА</h3>
-                <ul class="module-list">
-                    <li>Соблазнение за <span class="highlight">5-10 часов</span> коммуникации.</li>
-                    <li>Версия структуры для новичков (с чего начинать).</li>
-                    <li>Как понять, что пора переходить на следующий этап.</li>
-                    <li>Ввод заготовленного материала.</li>
-                    <li>Фрейм: готовность к сексу на 1-2 свидании.</li>
+          <!-- Module 1: СТРУКТУРА -->
+          <div class="module-item">
+            <h3 class="font-display module-title">СТРУКТУРА</h3>
+            <div class="module-grid">
+              <div>
+                <h4 class="font-display" style="color: var(--brand-neon); font-size: 14px; margin-bottom: 24px;">Темы модуля:</h4>
+                <ul class="module-list" style="--module-border: var(--brand-neon)">
+                  <li><span>▸</span><p>Структура, которая позволяет соблазнять в среднем <span class="highlight-tag">от 5 до 10 часов</span> коммуникации.</p></li>
+                  <li><span>▸</span><p>Та версия структуры, с которой ее <span class="highlight-tag">стоит начинать</span> осваивать.</p></li>
+                  <li><span>▸</span><p>Как понять, что пора передвигаться <span class="highlight-tag">с этапа на этап</span>.</p></li>
+                  <li><span>▸</span><p>Ввод <span class="highlight-tag">заготовленного материала</span> в соблазнение.</p></li>
+                  <li><span>▸</span><p><span class="highlight-tag">Фрейм</span>: как выстроить коммуникацию так, чтобы девушка готова была к сексу на 1, 2 свидании.</p></li>
                 </ul>
-                <div class="result-sticker">
-                    <small>Результат:</small>
-                    <p>Четкое знание, что делать в каждый момент. Никакой каши в голове.</p>
-                </div>
+              </div>
+              <div class="result-sticker">
+                <h4><div class="dot"></div> Результат:</h4>
+                <p>Будете четко знать, что и в какой момент сделать или сказать, не ломая голову, чем повысите эффективность процесса.</p>
+              </div>
             </div>
+          </div>
 
-            <div class="module-card" style="border-color: var(--accent);">
-                <h3 class="font-display text-accent">ВЛЕЧЕНИЕ</h3>
-                <ul class="module-list">
-                    <li>Концепция балльности: как вырасти в цене быстро.</li>
-                    <li>Научная эволюционная база влечения.</li>
-                    <li>Разбор ключевых <span class="highlight" style="background:rgba(255,0,255,0.1); border-color:var(--accent);">триггеров влечения</span>.</li>
-                    <li>Как применять: вербально и невербально.</li>
+          <!-- Module 2: ВЛЕЧЕНИЕ -->
+          <div class="module-item" style="--module-border: rgba(255,0,255,0.3)">
+            <h3 class="font-display module-title">ВЛЕЧЕНИЕ</h3>
+            <div class="module-grid">
+              <div>
+                <h4 class="font-display" style="color: var(--brand-accent); font-size: 14px; margin-bottom: 24px;">Темы модуля:</h4>
+                <ul class="module-list" style="--module-border: var(--brand-accent)">
+                  <li><span>▸</span><p><span class="highlight-tag-accent">Концепция балльности</span>. Как мужчине вырасти в цене на брачном рынке? Быстрые и долгие способы.</p></li>
+                  <li><span>▸</span><p><span class="highlight-tag-accent">Научная эволюционная база</span> по влечению.</p></li>
+                  <li><span>▸</span><p>Разбор ключевых <span class="highlight-tag-accent">триггеров влечения</span>, самых обязательных и эффективных.</p></li>
+                  <li><span>▸</span><p>Как их применять <span class="highlight-tag-accent">вербально, не вербально, визуально</span>.</p></li>
                 </ul>
-                <div class="result-sticker" style="transform: rotate(1deg);">
-                    <small>Результат:</small>
-                    <p>Понимание устройства женщины и того, как вызвать максимум эмоций минимумом действий.</p>
-                </div>
+              </div>
+              <div class="result-sticker" style="transform: rotate(1deg);">
+                <h4><div class="dot" style="background: var(--brand-accent)"></div> Результат:</h4>
+                <p>Вы будете лучше понимать устройство женщины, и какого минимального воздействия достаточно, чтобы вызвать максимум влечения.</p>
+              </div>
             </div>
+          </div>
 
-            <div class="module-card" style="border-color: var(--blue);">
-                <h3 class="font-display" style="color:var(--blue)">ДЕЙТИНГ ПРОФИЛЬ</h3>
-                <ul class="module-list">
-                    <li>Разбор фото по триггерам с примерами.</li>
-                    <li>Нейросети для прокачки фото (без палева).</li>
-                    <li>Описание профиля: вшиваем триггеры в текст.</li>
-                    <li>Промты для прокачки дейтинга.</li>
+          <!-- Module 3: ДЕЙТИНГ ПРОФИЛЬ -->
+          <div class="module-item" style="--module-border: rgba(0,240,255,0.3)">
+            <h3 class="font-display module-title">ДЕЙТИНГ ПРОФИЛЬ</h3>
+            <div class="module-grid">
+              <div>
+                <h4 class="font-display" style="color: var(--brand-blue); font-size: 14px; margin-bottom: 24px;">Темы модуля:</h4>
+                <ul class="module-list" style="--module-border: var(--brand-blue)">
+                  <li><span>▸</span><p>Профиль: <span class="highlight-tag-blue">разбор фото по триггерам</span> с примерами.</p></li>
+                  <li><span>▸</span><p>Как использовать <span class="highlight-tag-blue">нейросети для прокачки фото</span> без палева.</p></li>
+                  <li><span>▸</span><p><span class="highlight-tag-blue">Описание профиля</span>, вшиваем триггеры в текст.</p></li>
+                  <li><span>▸</span><p><span class="highlight-tag-blue">Промты</span> для прокачки описания профиля.</p></li>
                 </ul>
-                <div class="result-sticker">
-                    <small>Результат:</small>
-                    <p>Прокачанный Тinder/Mamba за один вечер. Больше матчей и выше качество девушек.</p>
-                </div>
+              </div>
+              <div class="result-sticker">
+                <h4><div class="dot" style="background: var(--brand-blue)"></div> Результат:</h4>
+                <p>Вы прокачаете свой дейтинг профиль буквально за один вечер и увеличите количество метчей и качество девушек.</p>
+              </div>
             </div>
-        </section>
+          </div>
 
-        <!-- Price -->
-        <section class="section">
+          <!-- FINAL SUMMARY -->
+          <div style="text-align: center; margin-top: 64px;">
+            <div style="padding: 32px; background: rgba(255,0,255,0.05); border: 1px solid rgba(255,0,255,0.2); border-radius: 40px; margin-bottom: 64px;">
+              <p style="font-size: clamp(1.25rem, 3vw, 1.875rem); line-height: 1.3; font-weight: 500;">
+                Выдача контента происходит поэтапно при непрерывной подписке — <span class="text-accent" style="font-weight: 900;">нельзя сразу попасть на 2-ой модуль</span>, если оплатить в феврале.
+              </p>
+            </div>
+
             <div class="price-block">
-                <div class="old-price">1599₽/мес</div>
-                <div class="promo-text">ТОЛЬКО ДО 31 ДЕКАБРЯ</div>
-                <div class="new-price font-display neon-glow">479<span>₽</span></div>
+              <div class="old-price">1599₽/мес</div>
+              <div class="promo-text">ТОЛЬКО ДО 31 ДЕКАБРЯ</div>
+              <div class="new-price font-display neon-glow">479<span>₽</span></div>
+              <div style="height: 6px; background: rgba(204,255,0,0.3); border-radius: 999px; margin-top: 16px;"></div>
             </div>
 
-            <a href="https://t.me/tribute/app?startapp=sJmC" target="_blank" class="btn" style="background: var(--neon);">КУПИТЬ ДОСТУП</a>
-            <p class="footer-note">Выдача контента происходит поэтапно при непрерывной подписке. Нельзя перескочить модули.</p>
+            <a href="https://t.me/tribute/app?startapp=sJmC" target="_blank" class="btn-buy uppercase">
+              ОПЛАТИТЬ СО СКИДКОЙ
+            </a>
+          </div>
+
         </section>
+      </section>
     </main>
-</body>
+  </body>
 </html>
