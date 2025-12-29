@@ -1,1 +1,1 @@
-// Static HTML mode active.
+// Static landing page logic. All styles moved to index.html head for performance.

@@ -1,130 +1,240 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Сообщество БОЛЬШЕ | Season 2</title>
     
-    <!-- Шрифты -->
+    <!-- Шрифты загружаем в начале -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- Критические стили -->
     <style>
+      /* Основные переменные и сброс */
       :root {
-        --brand-neon: #ccff00;
-        --brand-accent: #ff00ff;
-        --brand-blue: #00f0ff;
-        --bg-dark: #050505;
+        --neon: #ccff00;
+        --accent: #ff00ff;
+        --blue: #00f0ff;
+        --bg: #050505;
+        --card: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.1);
       }
-      body {
-        background-color: var(--bg-dark);
-        color: #ffffff;
+
+      * {
+        box-sizing: border-box;
         margin: 0;
-        font-family: 'Inter', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        overflow-x: hidden;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
       }
-      .fallback-grid {
+
+      body {
+        background-color: var(--bg);
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+        line-height: 1.5;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Фоновые эффекты - легкие для мобилок */
+      .bg-effects {
         position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .bg-grid {
+        position: absolute;
         inset: 0;
         background-image: 
           linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-        background-size: 40px 40px;
-        z-index: -1;
+        background-size: 30px 30px;
       }
-      .neon-glow {
-        text-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
-      }
-      .accent-glow {
-        text-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
-      }
-      .blue-glow {
-        text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-      }
-      @keyframes bounce-slow {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-      }
-      .animate-bounce-slow {
-        animation: bounce-slow 2s infinite ease-in-out;
-      }
-      .constructor-grid {
-        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-        background-size: 24px 24px;
-      }
-      .flicker {
-        animation: flicker 3s infinite;
-      }
-      @keyframes flicker {
-        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-        20%, 24%, 55% { opacity: 0.4; }
-      }
-      .module-card {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-      .module-card:hover {
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.05);
-      }
-      .highlight-tag {
-        display: inline-block;
-        background: rgba(204, 255, 0, 0.15);
-        color: #ffffff;
-        font-weight: 700;
-        padding: 0 4px;
-        border-radius: 2px;
-        border-left: 2px solid var(--brand-neon);
-      }
-      .highlight-tag-accent {
-        display: inline-block;
-        background: rgba(255, 0, 255, 0.15);
-        color: #ffffff;
-        font-weight: 700;
-        padding: 0 4px;
-        border-radius: 2px;
-        border-left: 2px solid var(--brand-accent);
-      }
-      .highlight-tag-blue {
-        display: inline-block;
-        background: rgba(0, 240, 255, 0.15);
-        color: #ffffff;
-        font-weight: 700;
-        padding: 0 4px;
-        border-radius: 2px;
-        border-left: 2px solid var(--brand-blue);
-      }
-      .result-sticker {
-        background-color: #ffffff;
-        box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15);
-        transform: rotate(-1deg);
-      }
-    </style>
 
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com/3.4.5"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              display: ['Unbounded', 'sans-serif'],
-            },
-            colors: {
-              brand: {
-                neon: '#ccff00', 
-                accent: '#ff00ff',
-                blue: '#00f0ff',
-                dark: '#050505',
-              }
-            }
-          }
-        }
+      .bg-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.1), transparent 50%),
+                    radial-gradient(circle at 90% 90%, rgba(255, 0, 255, 0.08), transparent 50%);
       }
-    </script>
+
+      /* Типографика */
+      .font-display { font-family: 'Unbounded', sans-serif; text-transform: uppercase; }
+      .text-neon { color: var(--neon); }
+      .text-accent { color: var(--accent); }
+      .neon-glow { text-shadow: 0 0 20px rgba(204, 255, 0, 0.4); }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        padding-top: 60px;
+      }
+
+      .season-sticker {
+        position: absolute;
+        top: 20%;
+        right: 0;
+        background: var(--neon);
+        color: #000;
+        font-family: 'Unbounded';
+        font-weight: 900;
+        padding: 6px 16px;
+        border-radius: 4px;
+        transform: rotate(12deg);
+        font-size: 14px;
+        box-shadow: 0 0 30px rgba(204, 255, 0, 0.5);
+        animation: bounce 2s infinite ease-in-out;
+      }
+
+      @keyframes bounce {
+        0%, 100% { transform: rotate(12deg) translateY(0); }
+        50% { transform: rotate(12deg) translateY(-10px); }
+      }
+
+      .hero p {
+        letter-spacing: 5px;
+        color: #666;
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 12px;
+      }
+
+      .hero h1 {
+        font-size: clamp(48px, 15vw, 120px);
+        line-height: 0.9;
+        margin-bottom: 20px;
+      }
+
+      /* Sections */
+      .section { padding: 80px 0; text-align: center; }
+      .section-title { font-size: clamp(24px, 6vw, 42px); margin-bottom: 40px; }
+
+      /* Points */
+      .point-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+
+      .point-line {
+        width: 4px;
+        background: var(--neon);
+        border-radius: 10px;
+        flex-shrink: 0;
+        box-shadow: 0 0 10px var(--neon);
+      }
+
+      .point-text { font-size: 18px; font-weight: 500; color: #eee; }
+      .highlight { 
+        background: rgba(204, 255, 0, 0.15); 
+        border-left: 3px solid var(--neon); 
+        padding: 0 6px; 
+        font-weight: 700; 
+      }
+
+      /* Constructor */
+      .constructor {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        padding: 40px 20px;
+        margin: 40px 0;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+
+      @media (min-width: 600px) {
+        .mini-grid { grid-template-columns: repeat(5, 1fr); }
+      }
+
+      .mini-card {
+        background: rgba(0,0,0,0.3);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .mini-card .val { color: var(--neon); font-family: 'Unbounded'; font-weight: 700; font-size: 18px; display: block; }
+      .mini-card .sub { font-size: 10px; color: #555; text-transform: uppercase; }
+
+      /* Module Cards */
+      .module-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 30px;
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      .module-card h3 { font-size: 28px; margin-bottom: 20px; }
+      .module-list { list-style: none; }
+      .module-list li { margin-bottom: 12px; padding-left: 20px; position: relative; font-size: 15px; }
+      .module-list li::before { content: '▸'; position: absolute; left: 0; color: var(--neon); }
+
+      .result-sticker {
+        background: #fff;
+        color: #000;
+        padding: 20px;
+        border-radius: 16px;
+        transform: rotate(-1deg);
+        margin-top: 20px;
+      }
+
+      .result-sticker small { display: block; font-size: 10px; font-weight: 900; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+      .result-sticker p { font-weight: 700; font-size: 16px; line-height: 1.3; }
+
+      /* Price */
+      .price-block { margin: 60px 0; }
+      .old-price { text-decoration: line-through; color: #444; font-family: 'Unbounded'; font-size: 24px; }
+      .promo-text { color: var(--accent); font-family: 'Unbounded'; font-size: 16px; margin: 10px 0; }
+      .new-price { font-size: 80px; font-family: 'Unbounded'; font-weight: 900; color: var(--neon); line-height: 1; }
+      .new-price span { font-size: 30px; margin-left: 5px; }
+
+      /* Button */
+      .btn {
+        display: block;
+        width: 100%;
+        background: #fff;
+        color: #000;
+        padding: 22px;
+        border-radius: 20px;
+        font-family: 'Unbounded';
+        font-weight: 900;
+        font-size: 18px;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        margin-top: 20px;
+      }
+
+      .btn:active { transform: scale(0.97); }
+
+      .footer-note { font-size: 11px; color: #444; margin-top: 30px; text-transform: uppercase; font-weight: 700; }
+    </style>
 <script type="importmap">
 {
   "imports": {
@@ -135,411 +245,125 @@
 }
 </script>
 </head>
-  <body class="bg-brand-dark text-white selection:bg-brand-neon selection:text-brand-dark">
-    
-    <div class="fallback-grid"></div>
-    
-    <!-- Декоративные пятна -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-[-1]">
-      <div class="absolute -top-[10%] -left-[10%] w-[150vw] h-[150vw] sm:w-[800px] sm:h-[800px] bg-[radial-gradient(circle,rgba(204,255,0,0.15),transparent_70%)]"></div>
-      <div class="absolute bottom-[10%] -right-[10%] w-[150vw] h-[150vw] sm:w-[800px] sm:h-[800px] bg-[radial-gradient(circle,rgba(255,0,255,0.1),transparent_70%)]"></div>
+<body>
+    <div class="bg-effects">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
     </div>
 
-    <main class="relative z-10 w-full">
-      
-      <!-- HERO SECTION -->
-      <section class="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 pt-20">
-        <div class="relative flex flex-col items-center">
-          <span class="absolute -top-10 -right-4 sm:-right-10 rotate-12 bg-brand-neon text-brand-dark px-4 py-1 font-display font-black text-sm md:text-xl rounded shadow-[0_0_30px_rgba(204,255,0,0.6)] animate-bounce">
-            SEASON 2
-          </span>
-          <p class="uppercase tracking-[0.3em] text-gray-400 text-xs md:text-xl mb-4 font-sans font-semibold">Сообщество</p>
-          <h1 class="text-5xl sm:text-7xl md:text-[10.8rem] font-display font-black leading-none mb-4 neon-glow uppercase">
-            БОЛЬШЕ
-          </h1>
-          <div class="h-1 w-24 bg-brand-neon mx-auto mb-12"></div>
-          
-          <div class="animate-bounce-slow opacity-50">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-            </svg>
-          </div>
-        </div>
-      </section>
+    <main class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <span class="season-sticker">SEASON 2</span>
+            <p>СООБЩЕСТВО</p>
+            <h1 class="font-display neon-glow">БОЛЬШЕ</h1>
+            <div style="width: 60px; height: 3px; background: var(--neon); margin: 0 auto;"></div>
+        </section>
 
-      <!-- CONTENT SECTION -->
-      <section class="py-24 px-4">
-        <div class="max-w-4xl mx-auto flex flex-col items-center">
-          <h2 class="text-3xl md:text-5xl font-display font-black mb-10 italic uppercase text-center">ЧТО НОВОГО?</h2>
-          
-          <div class="animate-bounce-slow opacity-50 mb-16">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-            </svg>
-          </div>
-
-          <div class="mb-20 text-center w-full">
-            <p class="text-brand-accent font-display font-bold text-[10px] sm:text-sm md:text-xl mb-4 tracking-widest uppercase">
-              Мы запускаем 5 месячный курс
-            </p>
-            <h3 class="text-3xl md:text-8xl font-display font-black text-white leading-tight uppercase text-center">
-              СРЕДНЯЯ ШКОЛА <br class="hidden md:block" />
-              <span class="text-brand-neon">СОБЛАЗНЕНИЯ</span>
-            </h3>
-          </div>
-          
-          <!-- Пункты -->
-          <div class="space-y-12 max-w-3xl mx-auto mb-20">
-            <div class="flex items-start gap-6 group">
-              <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
-              <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
-                Базовые навыки соблазнения, простым языком, в простом формате для повторения (1-2-3)
-              </p>
-            </div>
-            <div class="flex items-start gap-6 group">
-              <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
-              <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
-                Навыки, которые позволят соблазнять девушек своего (и +0,5 балла) уровня 
-                <span class="text-brand-neon font-black">предсказуемо за 5-10 часов</span> без осечек.
-              </p>
-            </div>
-            <div class="flex items-start gap-6 group">
-              <div class="w-1.5 self-stretch bg-brand-neon rounded-full shadow-[0_0_15px_rgba(204,255,0,0.5)]"></div>
-              <p class="text-lg md:text-2xl font-medium leading-relaxed py-2 text-white/90">
-                Обучение адаптировано для обычных парней. Не нужно рассказывать про яхты и большие бизнесы.
-              </p>
-            </div>
-          </div>
-
-          <!-- CTA -->
-          <section class="w-full py-10 mb-20 text-center">
-            <div class="max-w-2xl mx-auto bg-white text-black p-8 md:p-16 rounded-[40px] shadow-[0_0_50px_rgba(255,255,255,0.2)]">
-              <h3 class="text-2xl md:text-5xl font-display font-black mb-8 leading-tight uppercase">ГОТОВ К ПЕРЕМЕНАМ?</h3>
-              <button 
-                onclick="window.open('https://t.me/tribute/app?startapp=sJmC', '_blank')"
-                class="w-full bg-brand-dark text-white font-display font-bold py-5 md:py-6 px-10 rounded-2xl text-lg md:text-xl hover:bg-brand-neon hover:text-brand-dark transition-all active:scale-95 uppercase cursor-pointer shadow-lg"
-              >
-                ОПЛАТИТЬ СО СКИДКОЙ
-              </button>
-            </div>
-          </section>
-
-          <!-- CONSTRUCTOR SECTION -->
-          <div class="w-full max-w-7xl constructor-grid border border-white/5 rounded-[30px] md:rounded-[40px] px-5 py-10 md:p-16 mb-24 relative overflow-hidden mx-auto">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent"></div>
+        <!-- What's New -->
+        <section class="section">
+            <h2 class="font-display section-title" style="font-style: italic;">ЧТО НОВОГО?</h2>
             
-            <div class="text-center mb-16">
-              <h4 class="text-xl md:text-4xl font-display font-black mb-6 flicker uppercase text-center w-full">
-                ВОТ ВЫ ЛОМАЕТЕ ГОЛОВУ...
-              </h4>
-              <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
-                <div class="border border-white/10 p-3 md:p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
-                  <span class="block text-brand-neon font-display font-bold text-lg md:text-xl mb-1">ЧТО</span>
-                  <span class="text-[10px] md:text-xs uppercase text-gray-400">сказать?</span>
-                </div>
-                <div class="border border-white/10 p-3 md:p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
-                  <span class="block text-brand-neon font-display font-bold text-lg md:text-xl mb-1">КОГДА</span>
-                  <span class="text-[10px] md:text-xs uppercase text-gray-400">сказать?</span>
-                </div>
-                <div class="border border-white/10 p-3 md:p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
-                  <span class="block text-brand-neon font-display font-bold text-lg md:text-xl mb-1">КАК</span>
-                  <span class="text-[10px] md:text-xs uppercase text-gray-400">сделать?</span>
-                </div>
-                <div class="border border-white/10 p-3 md:p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform">
-                  <span class="block text-brand-accent font-display font-bold text-lg md:text-xl mb-1">КАКИМ</span>
-                  <span class="text-[10px] md:text-xs uppercase text-gray-400">образом?</span>
-                </div>
-                <div class="border border-white/10 p-3 md:p-4 rounded-xl bg-black/40 backdrop-blur-sm transform hover:scale-105 transition-transform col-span-2 md:col-span-1">
-                  <span class="block text-white font-display font-bold text-lg md:text-xl mb-1">КАК</span>
-                  <span class="text-[10px] md:text-xs uppercase text-gray-400">поступить?</span>
-                </div>
-              </div>
+            <div style="margin-bottom: 50px;">
+                <p class="text-accent font-display" style="font-size: 12px; letter-spacing: 4px; margin-bottom: 10px;">Мы запускаем 5 месячный курс</p>
+                <h3 class="font-display" style="font-size: clamp(32px, 8vw, 64px); line-height: 1;">
+                    СРЕДНЯЯ ШКОЛА <br>
+                    <span class="text-neon">СОБЛАЗНЕНИЯ</span>
+                </h3>
             </div>
 
-            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-12 mb-7">
-              <div class="flex-1 text-center md:text-left">
-                <p class="text-xl md:text-3xl font-display font-bold leading-tight mb-4 text-center md:text-left">
-                  Мы разбиваем соблазнение на <span class="text-brand-neon underline decoration-brand-neon/30 underline-offset-8">микроэтапы</span>
-                </p>
-                <p class="text-gray-400 md:text-lg text-center md:text-left">С конкретными примерами, шаблонами и четкими рекомендациями.</p>
-              </div>
-              <div class="w-px h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"></div>
-              <div class="flex-1 w-full space-y-5">
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-brand-neon flex items-center justify-center font-display font-black text-brand-neon text-xs md:text-sm">15с</div>
-                  <p class="text-sm md:text-base text-white/80">Что сказать в первые секунды</p>
+            <div class="points">
+                <div class="point-item">
+                    <div class="point-line"></div>
+                    <div class="point-text">Базовые навыки соблазнения, простым языком, в простом формате для повторения (1-2-3).</div>
                 </div>
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-brand-accent flex items-center justify-center font-display font-black text-brand-accent text-xs md:text-sm">40с</div>
-                  <p class="text-sm md:text-base text-white/80">Как быстро заполнит паузу</p>
+                <div class="point-item">
+                    <div class="point-line"></div>
+                    <div class="point-text">Навыки, которые позволят соблазнять девушек своего уровня <span class="text-neon" style="font-weight: 900;">предсказуемо за 5-10 часов</span> без осечек.</div>
                 </div>
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-white flex items-center justify-center font-display font-black text-white text-xs md:text-sm">TXT</div>
-                  <p class="text-sm md:text-base text-white/80">Что написать первым сообщением</p>
+                <div class="point-item">
+                    <div class="point-line"></div>
+                    <div class="point-text">Обучение адаптировано для <span class="highlight">обычных парней</span>. Не нужно рассказывать про яхты и большие бизнесы.</div>
                 </div>
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 rounded-full border border-brand-neon bg-brand-neon flex items-center justify-center font-display font-black text-brand-dark text-xs md:text-sm">OUT</div>
-                  <p class="text-sm md:text-base text-white/80">Как позвать на встречу без отказа</p>
-                </div>
-              </div>
             </div>
 
-            <div class="text-center pt-5 border-t border-white/5 w-full">
-              <p class="text-gray-500 uppercase tracking-widest text-[10px] md:text-xs mb-4 text-center">В итоге ты получаешь</p>
-              <h3 class="text-2xl sm:text-4xl md:text-7xl font-display font-black text-white neon-glow uppercase leading-tight w-full px-2 text-center">
-                КОНСТРУКТОР <br class="md:hidden"/> <span class="text-brand-neon">СОБЛАЗНЕНИЯ</span>
-              </h3>
+            <a href="https://t.me/tribute/app?startapp=sJmC" target="_blank" class="btn">ОПЛАТИТЬ СО СКИДКОЙ</a>
+        </section>
+
+        <!-- Constructor -->
+        <section class="section">
+            <div class="constructor">
+                <h4 class="font-display" style="font-size: 20px; margin-bottom: 30px;">ВОТ ВЫ ЛОМАЕТЕ ГОЛОВУ...</h4>
+                <div class="mini-grid">
+                    <div class="mini-card"><span class="val">ЧТО</span><span class="sub">сказать?</span></div>
+                    <div class="mini-card"><span class="val">КОГДА</span><span class="sub">сказать?</span></div>
+                    <div class="mini-card"><span class="val">КАК</span><span class="sub">сделать?</span></div>
+                    <div class="mini-card"><span class="val" style="color:var(--accent)">КАКИМ</span><span class="sub">образом?</span></div>
+                    <div class="mini-card"><span class="val" style="color:#fff">КАК</span><span class="sub">поступить?</span></div>
+                </div>
+                <h3 class="font-display neon-glow" style="font-size: 32px;">КОНСТРУКТОР <br><span class="text-neon">СОБЛАЗНЕНИЯ</span></h3>
             </div>
-          </div>
+        </section>
 
-          <!-- SECTION: COURSE STRUCTURE -->
-          <section class="w-full py-16 mb-24">
-            <div class="text-center mb-16">
-              <h2 class="text-3xl md:text-5xl font-display font-black mb-6 italic uppercase">СТРУКТУРА КУРСА</h2>
-              <div class="max-w-2xl mx-auto space-y-6">
-                <p class="text-white font-display font-medium text-sm md:text-xl tracking-wide leading-relaxed">
-                  Модули выдаются в зависимости от времени непрерывной подписки на сообщество.
-                </p>
-                <!-- Visual Stages -->
-                <div class="flex flex-wrap items-center justify-center gap-x-2 md:gap-x-4 gap-y-2 text-[10px] md:text-sm font-display font-black uppercase tracking-widest">
-                  <div class="bg-brand-neon/10 text-brand-neon px-3 py-1.5 rounded-lg border border-brand-neon/20">1 месяц — 1 модуль</div>
-                  <span class="hidden md:block text-white/20">•</span>
-                  <div class="bg-brand-accent/10 text-brand-accent px-3 py-1.5 rounded-lg border border-brand-accent/20">2 месяц — 2 модуль</div>
-                  <span class="hidden md:block text-white/20">•</span>
-                  <div class="bg-brand-blue/10 text-brand-blue px-3 py-1.5 rounded-lg border border-brand-blue/20">3 месяц — 3 модуль</div>
+        <!-- Modules -->
+        <section class="section">
+            <h2 class="font-display section-title">ТЕМЫ ЯНВАРЯ</h2>
+
+            <div class="module-card">
+                <h3 class="font-display">СТРУКТУРА</h3>
+                <ul class="module-list">
+                    <li>Соблазнение за <span class="highlight">5-10 часов</span> коммуникации.</li>
+                    <li>Версия структуры для новичков (с чего начинать).</li>
+                    <li>Как понять, что пора переходить на следующий этап.</li>
+                    <li>Ввод заготовленного материала.</li>
+                    <li>Фрейм: готовность к сексу на 1-2 свидании.</li>
+                </ul>
+                <div class="result-sticker">
+                    <small>Результат:</small>
+                    <p>Четкое знание, что делать в каждый момент. Никакой каши в голове.</p>
                 </div>
-              </div>
             </div>
 
-            <div class="max-w-7xl mx-auto px-4">
-              <div class="mb-6 text-center md:text-left">
-                  <span class="text-brand-neon font-display font-black text-xl md:text-4xl uppercase tracking-tighter neon-glow">
-                      ЭТО ТЕМЫ ЯНВАРЯ
-                  </span>
-              </div>
-
-              <!-- Detailed Topic 1: СТРУКТУРА -->
-              <div class="mb-12">
-                <div class="constructor-grid border-2 border-brand-neon/30 rounded-[30px] md:rounded-[40px] p-6 md:p-12 relative overflow-hidden shadow-[0_0_30px_rgba(204,255,0,0.1)]">
-                  <div class="absolute top-0 right-0 w-32 h-32 bg-brand-neon/10 blur-3xl -z-10"></div>
-                  
-                  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                    <div class="w-full">
-                      <h3 class="text-3xl sm:text-4xl md:text-6xl font-display font-black uppercase text-white leading-tight break-words">
-                        СТРУКТУРА
-                      </h3>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-                    <div>
-                      <h4 class="text-brand-neon font-display font-bold text-sm mb-6 uppercase tracking-widest">Темы модуля:</h4>
-                      <ul class="space-y-4">
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-neon font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Структура, которая позволяет соблазнять в среднем <span class="highlight-tag">от 5 до 10 часов</span> коммуникации.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-neon font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Та версия структуры, с которой ее <span class="highlight-tag">стоит начинать</span> осваивать, и только потом переходить на более сложные версии.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-neon font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Как понять, что пора передвигаться <span class="highlight-tag">с этапа на этап</span>.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-neon font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Ввод <span class="highlight-tag">заготовленного материала</span> в соблазнение.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-neon font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            <span class="highlight-tag">Фрейм</span>: как выстроить коммуникацию так, чтобы девушка готова была к сексу на 1, 2 свидании.
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="result-sticker rounded-2xl md:rounded-3xl p-6 md:p-10 flex flex-col justify-center w-full mx-auto md:mx-0">
-                      <h4 class="text-brand-dark font-display font-bold text-[10px] md:text-sm mb-3 md:mb-4 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 bg-brand-neon rounded-full"></span>
-                        Результат:
-                      </h4>
-                      <p class="text-brand-dark text-[15px] md:text-xl font-bold leading-relaxed italic">
-                        Будете четко знать, что и в какой момент сделать или сказать, не ломая голову, чем повысите эффективность процесса.
-                      </p>
-                    </div>
-                  </div>
+            <div class="module-card" style="border-color: var(--accent);">
+                <h3 class="font-display text-accent">ВЛЕЧЕНИЕ</h3>
+                <ul class="module-list">
+                    <li>Концепция балльности: как вырасти в цене быстро.</li>
+                    <li>Научная эволюционная база влечения.</li>
+                    <li>Разбор ключевых <span class="highlight" style="background:rgba(255,0,255,0.1); border-color:var(--accent);">триггеров влечения</span>.</li>
+                    <li>Как применять: вербально и невербально.</li>
+                </ul>
+                <div class="result-sticker" style="transform: rotate(1deg);">
+                    <small>Результат:</small>
+                    <p>Понимание устройства женщины и того, как вызвать максимум эмоций минимумом действий.</p>
                 </div>
-              </div>
-
-              <!-- Detailed Topic 2: ВЛЕЧЕНИЕ -->
-              <div class="mb-12">
-                <div class="constructor-grid border-2 border-brand-accent/30 rounded-[30px] md:rounded-[40px] p-6 md:p-12 relative overflow-hidden shadow-[0_0_30px_rgba(255,0,255,0.1)]">
-                  <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 blur-3xl -z-10"></div>
-                  
-                  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                    <div class="w-full">
-                      <h3 class="text-3xl sm:text-4xl md:text-6xl font-display font-black uppercase text-white leading-tight break-words">
-                        ВЛЕЧЕНИЕ
-                      </h3>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-                    <div>
-                      <h4 class="text-brand-accent font-display font-bold text-sm mb-6 uppercase tracking-widest">Темы модуля:</h4>
-                      <ul class="space-y-4">
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            <span class="highlight-tag-accent">Концепция балльности</span>. Как мужчине вырасти в цене на брачном рынке? Быстрые и долгие способы.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            <span class="highlight-tag-accent">Научная эволюционная база</span> по влечению.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Разбор ключевых <span class="highlight-tag-accent">триггеров влечения</span>, самых обязательных и эффективных на большинстве девушек.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-accent font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Как их применять <span class="highlight-tag-accent">вербально, не вербально, визуально</span>.
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="result-sticker rounded-2xl md:rounded-3xl p-6 md:p-10 flex flex-col justify-center w-full mx-auto md:mx-0 !rotate-[1deg]">
-                      <h4 class="text-brand-dark font-display font-bold text-[10px] md:text-sm mb-3 md:mb-4 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 bg-brand-accent rounded-full"></span>
-                        Результат:
-                      </h4>
-                      <p class="text-brand-dark text-[15px] md:text-xl font-bold leading-relaxed italic">
-                        Вы будете лучше понимать устройство женщины, и какого минимального воздействия достаточно, чтобы вызвать максимум влечения.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Detailed Topic 3: ДЕЙТИНГ ПРОФИЛЬ -->
-              <div class="mb-24">
-                <div class="constructor-grid border-2 border-brand-blue/30 rounded-[30px] md:rounded-[40px] p-6 md:p-12 relative overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.1)]">
-                  <div class="absolute top-0 right-0 w-32 h-32 bg-brand-blue/10 blur-3xl -z-10"></div>
-                  
-                  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                    <div class="w-full">
-                      <h3 class="text-3xl sm:text-4xl md:text-6xl font-display font-black uppercase text-white leading-tight break-words">
-                        ДЕЙТИНГ ПРОФИЛЬ
-                      </h3>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-                    <div>
-                      <h4 class="text-brand-blue font-display font-bold text-sm mb-6 uppercase tracking-widest">Темы модуля:</h4>
-                      <ul class="space-y-4">
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-blue font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Профиль: <span class="highlight-tag-blue">разбор фото по триггерам</span> с примерами.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-blue font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            Как использовать <span class="highlight-tag-blue">нейросети для прокачки фото</span> таким образом, чтобы это было не палевно, и чтобы не было разрыва «Ожидание/реальность».
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-blue font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            <span class="highlight-tag-blue">Описание профиля</span>, вшиваем триггеры в текст.
-                          </p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                          <span class="text-brand-blue font-black text-xl leading-none">▸</span>
-                          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                            <span class="highlight-tag-blue">Промты</span> для прокачки описания профиля.
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="result-sticker rounded-2xl md:rounded-3xl p-6 md:p-10 flex flex-col justify-center w-full mx-auto md:mx-0">
-                      <h4 class="text-brand-dark font-display font-bold text-[10px] md:text-sm mb-3 md:mb-4 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 bg-brand-blue rounded-full"></span>
-                        Результат:
-                      </h4>
-                      <p class="text-brand-dark text-[15px] md:text-xl font-bold leading-relaxed italic">
-                        Вы прокачаете свой дейтинг профиль буквально за один вечер и увеличите количество метчей и качество девушек.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- FINAL SUMMARY BLOCK -->
-              <section class="mt-12 w-full py-16 text-center">
-                <div class="max-w-4xl mx-auto space-y-12">
-                  <div class="space-y-6">
-                    <div class="p-8 md:p-12 bg-brand-accent/5 border border-brand-accent/20 rounded-[40px] backdrop-blur-sm relative overflow-hidden group">
-                      <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      <p class="relative text-xl md:text-3xl text-white/90 leading-tight md:leading-snug font-medium">
-                        Выдача контента происходит поэтапно при непрерывной подписке — <span class="text-brand-accent font-black">нельзя сразу попасть на 2-ой модуль</span>, если оплатить в феврале.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="py-6">
-                    <p class="text-gray-500 uppercase tracking-widest text-xs md:text-sm mb-4">Стоимость участия</p>
-                    <div class="inline-flex flex-col items-center">
-                        <div class="text-2xl md:text-4xl font-display font-bold text-gray-500 line-through mb-4 opacity-50">
-                          1599₽/мес
-                        </div>
-                        <div class="text-xl md:text-3xl font-display font-black text-brand-accent mb-4 tracking-tighter uppercase flicker">
-                          ТОЛЬКО ДО 31 ДЕКАБРЯ
-                        </div>
-                        <div class="text-7xl md:text-[11rem] font-display font-black text-brand-neon neon-glow leading-none">
-                          479<span class="text-3xl md:text-6xl ml-2">₽</span>
-                        </div>
-                        <div class="h-1.5 w-full bg-brand-neon/30 mt-4 rounded-full"></div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center gap-6">
-                    <button 
-                      onclick="window.open('https://t.me/tribute/app?startapp=sJmC', '_blank')"
-                      class="group relative w-full max-w-xl overflow-hidden bg-white text-brand-dark font-display font-black py-8 px-12 rounded-[30px] text-xl md:text-3xl hover:bg-brand-neon transition-all active:scale-95 uppercase cursor-pointer shadow-[0_30px_60px_-15px_rgba(204,255,0,0.3)]"
-                    >
-                      <span class="relative z-10">ОПЛАТИТЬ СО СКИДКОЙ</span>
-                    </button>
-                  </div>
-                </div>
-              </section>
-
             </div>
-          </section>
 
-        </div>
-      </section>
+            <div class="module-card" style="border-color: var(--blue);">
+                <h3 class="font-display" style="color:var(--blue)">ДЕЙТИНГ ПРОФИЛЬ</h3>
+                <ul class="module-list">
+                    <li>Разбор фото по триггерам с примерами.</li>
+                    <li>Нейросети для прокачки фото (без палева).</li>
+                    <li>Описание профиля: вшиваем триггеры в текст.</li>
+                    <li>Промты для прокачки дейтинга.</li>
+                </ul>
+                <div class="result-sticker">
+                    <small>Результат:</small>
+                    <p>Прокачанный Тinder/Mamba за один вечер. Больше матчей и выше качество девушек.</p>
+                </div>
+            </div>
+        </section>
 
+        <!-- Price -->
+        <section class="section">
+            <div class="price-block">
+                <div class="old-price">1599₽/мес</div>
+                <div class="promo-text">ТОЛЬКО ДО 31 ДЕКАБРЯ</div>
+                <div class="new-price font-display neon-glow">479<span>₽</span></div>
+            </div>
+
+            <a href="https://t.me/tribute/app?startapp=sJmC" target="_blank" class="btn" style="background: var(--neon);">КУПИТЬ ДОСТУП</a>
+            <p class="footer-note">Выдача контента происходит поэтапно при непрерывной подписке. Нельзя перескочить модули.</p>
+        </section>
     </main>
-  </body>
+</body>
 </html>
